@@ -10,9 +10,11 @@
 
 (function() {
     var game = function() {
+        
     };
 
     game.prototype.foo = function() {
+        
     }
 
 });
@@ -32,24 +34,28 @@
         }, 1000/FPS);
     };
 
-
-    function draw(displayItems) {
-        var item;
-        for (item in displayItems) {
-            if (displayItems.hasOwnProperty(item)) {
-               //TODO: This doesn't keep track of z-index order.
-               item.render();
-            }
-        }
-
-
+    //TODO object this into own thing, make it know of self.canvas
+    var displayItems;
+    displayItems["gameBoard"] = function(canvas, motion, style){
         canvas.fillStyle = "rgba(0, 0, 200, 0.1)"; // Set color to black
         canvas.fillRect(190, 0, 520, 520);
-
+    }
+    displayItems["playBoundry"] = function(canvas, motion, style){
         canvas.strokeStyle= "white";
         canvas.beginPath();
         canvas.arc(500,300,200, 0, (2*Math.PI)*textX/900 ,true)
         canvas.stroke()
+    }
+
+
+    //TODO: This doesn't keep track of z-index order.
+    function draw(displayItems) {
+        var item;
+        for (item in displayItems) {
+            if (displayItems.hasOwnProperty(item)) {
+               item.render();
+            }
+        }
     }
 
     function update() {
