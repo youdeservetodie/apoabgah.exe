@@ -30,14 +30,18 @@
         });
     }
 
-    var background = imageBuilder(canvas, "http://placekitten.com/640/480");
-    var person     = imageBuilder(canvas, "http://placekitten.com/400/480");
-    var hand       = imageBuilder(canvas, "http://placekitten.com/300/260");
+    var background = imageBuilder(canvas, "firey_background.jpg");
+    var person     = imageBuilder(canvas, "chained_man.png");
+    var hand       = imageBuilder(canvas, "arm1.png");
+/*
+arm2.png
+arm3.png
+*/
 
     function draw() {
         background(0,0);
         person(0, 0);
-        hand(mouseX, mouseY);
+        hand(mouseX-270, mouseY-230);
     }
 
     function update() {
