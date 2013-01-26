@@ -5,9 +5,8 @@
     var mouseX = 0;
     var mouseY = 0;
 
-
-
     var score = 0;
+    var stage = 0;
 
     window.onload = function() {
         var FPS = 60;
@@ -19,6 +18,12 @@
             var coords = canvasElement.relMouseCoords(event);
             mouseX = coords.x;
             mouseY = coords.y;
+
+            if (mouseX > 200 && mouseX < 400) {
+                if (mouseX > 200 && mouseX < 400) {
+                    score += 1;
+                }
+            }
         });
     };
 
@@ -32,19 +37,26 @@
 
     var background = imageBuilder(canvas, "firey_background.jpg");
     var person     = imageBuilder(canvas, "chained_man.png");
-    var hand       = imageBuilder(canvas, "arm1.png");
-/*
-arm2.png
-arm3.png
-*/
+    var hand = [
+        imageBuilder(canvas, "arm1.png"),
+        imageBuilder(canvas, "arm2.png"),
+        imageBuilder(canvas, "arm3.png"),
+    ]
 
     function draw() {
         background(0,0);
         person(0, 0);
-        hand(mouseX-270, mouseY-230);
+        hand[stage](mouseX-270, mouseY-230);
     }
 
     function update() {
+        stage = 0;
+        if (score > 10 ) {
+            stage = 1;
+        }
+        if (score > 20 ) {
+            stage = 2;
+        }
     }
 
 }());
