@@ -1,10 +1,9 @@
-var canvasElement = document.getElementById("game");
-var canvas = canvasElement.getContext("2d");
-var CANVAS_WIDTH = canvasElement.width;
-var CANVAS_HEIGHT = canvasElement.height;
-
 
 (function() {
+    var canvasElement = document.getElementById("game");
+    var canvas = canvasElement.getContext("2d");
+    var canvasX = 0;
+    var canvasY = 0;
 
     window.onload = function() {
         var FPS = 60;
@@ -12,9 +11,14 @@ var CANVAS_HEIGHT = canvasElement.height;
             update();
             draw();
         }, 1000/FPS);
+        window.addEventListener("click", function(event) {
+            var coords = canvasElement.relMouseCoords(event);
+            canvasX = coords.x;
+            canvasY = coords.y;
+        });
     };
-    
-    function imageBuilder(context, src){
+
+    function imageBuilder(context, src) {
         var img = new Image();
         img.src = src;
         return (function(posX, posY) {
@@ -23,18 +27,17 @@ var CANVAS_HEIGHT = canvasElement.height;
     }
 
     var background = imageBuilder(canvas, "http://placekitten.com/640/480");
-    var hand       = imageBuilder(canvas, "http://placekitten.com/300/260");
     var person     = imageBuilder(canvas, "http://placekitten.com/400/480");
+    var hand       = imageBuilder(canvas, "http://placekitten.com/300/260");
 
     function draw() {
-
         background(0,0);
-        hand(0, 0);
         person(0, 0);
+        hand(canvasX, canvasY);
     }
 
     function update() {
-       
+        
     }
 
 }());
