@@ -2,8 +2,12 @@
 (function() {
     var canvasElement = document.getElementById("game");
     var canvas = canvasElement.getContext("2d");
-    var canvasX = 0;
-    var canvasY = 0;
+    var mouseX = 0;
+    var mouseY = 0;
+
+
+
+    var score = 0;
 
     window.onload = function() {
         var FPS = 60;
@@ -13,8 +17,8 @@
         }, 1000/FPS);
         window.addEventListener("click", function(event) {
             var coords = canvasElement.relMouseCoords(event);
-            canvasX = coords.x;
-            canvasY = coords.y;
+            mouseX = coords.x;
+            mouseY = coords.y;
         });
     };
 
@@ -33,11 +37,10 @@
     function draw() {
         background(0,0);
         person(0, 0);
-        hand(canvasX, canvasY);
+        hand(mouseX, mouseY);
     }
 
     function update() {
-        
     }
 
 }());
