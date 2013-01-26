@@ -25,7 +25,7 @@ var displayItemMap = (function(canvasContext) {
     displayItemMap.prototype.add = (function(name, contextFunction, zIndex) {
         var self=this;
         zIndex = zIndex || 0;
-        if ("undefined" !== typeof self._items[name]) {
+        if ("undefined" === typeof self._items[name]) {
             self._items[name] = {
                 contextInjector: contextFunction,
                 zIndex: zIndex
@@ -47,11 +47,16 @@ var displayItemMap = (function(canvasContext) {
         displayItem.contextFunction();
     });
 
-    return new displayItemMap(canvasContext);
+    return displayItemMap;
 }());
 
+var canvasElement = document.getElementById("game");
+var canvas = canvasElement.getContext("2d");
+var CANVAS_WIDTH = canvasElement.width;
+var CANVAS_HEIGHT = canvasElement.height;
+var itemMap = new displayItemMap(canvas);
 
-(function() {
+var game = (function() {
     var game = function() {
         var self=this;
     };
@@ -61,9 +66,8 @@ var displayItemMap = (function(canvasContext) {
     };
 }());
 
-
 displayItemMap.add(
-    "gameBoard", 
+    "gameBoard",
     function(canvas, motion, style) {
         canvas.fillStyle = "rgba(0, 0, 200, 0.1)"; // Set color to black
         canvas.fillRect(190, 0, 520, 520);
@@ -80,12 +84,9 @@ displayItemMap.add(
     }
 );
 
+console.log(displayItemMap)
 
-(function() {
-    var canvasElement = document.getElementById("game");
-    var canvas = canvasElement.getContext("2d");
-    var CANVAS_WIDTH = canvasElement.width;
-    var CANVAS_HEIGHT = canvasElement.height;
+var q = (function() {
 
     window.onload = function() {
         var FPS = 60;
@@ -113,4 +114,4 @@ displayItemMap.add(
 
     }
 
-})();
+}());
